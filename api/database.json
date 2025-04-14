@@ -106,25 +106,25 @@
   "facilityMinerals": [
     {
       "id": 1,
-      "facilityId": 1,
+      "miningFacilityId": 1,
       "mineralsId": 1,
       "quantity": 18
     },
     {
       "id": 2,
-      "facilityId": 1,
+      "miningFacilityId": 1,
       "mineralsId": 2,
       "quantity": 12
     },
     {
       "id": 3,
-      "facilityId": 2,
+      "miningFacilityId": 2,
       "mineralsId": 3,
       "quantity": 4
     },
     {
       "id": 3,
-      "facilityId": 2,
+      "miningFacilityId": 2,
       "mineralsId": 1,
       "quantity": 9
     }
