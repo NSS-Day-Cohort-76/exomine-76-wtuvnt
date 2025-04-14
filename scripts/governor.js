@@ -1,3 +1,5 @@
+import { setColony } from "./TransientState.js";
+
 const handleGovernorChange = async (changeEvent) => {
   if (changeEvent.target.name === "governor") {
     const selectedGovernorId = parseInt(changeEvent.target.value);
@@ -26,6 +28,7 @@ const handleGovernorChange = async (changeEvent) => {
     );
 
     if (selectedGovernor) {
+      setColony(selectedGovernor.colonyId);
       // Find the colony associated with the selected governor
       const colony = colonies.find(
         (colony) => colony.id === selectedGovernor.colonyId
@@ -40,7 +43,7 @@ const handleGovernorChange = async (changeEvent) => {
       const mineralsHtml = filteredColonyMinerals
         .map((colonyMineral) => {
           const mineral = minerals.find(
-            (m) => m.id === colonyMineral.mineralsId
+            (mineral) => mineral.id === colonyMineral.mineralsId
           );
           return `<li>${mineral.name}: ${colonyMineral.quantity}</li>`;
         })
