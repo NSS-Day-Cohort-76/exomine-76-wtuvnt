@@ -22,7 +22,7 @@
     },
     {
       "id": 2,
-      "name": "Benjamin Jackson Burnley IV",
+      "name": "Benjamin Burnley IV",
       "activeStatus": 1,
       "colonyId": 3
     },
@@ -120,13 +120,13 @@
       "id": 3,
       "facilityId": 2,
       "mineralsId": 3,
-      "quantity": 420
+      "quantity": 4
     },
     {
       "id": 3,
       "facilityId": 2,
       "mineralsId": 1,
-      "quantity": 69
+      "quantity": 9
     }
   ]
 }
