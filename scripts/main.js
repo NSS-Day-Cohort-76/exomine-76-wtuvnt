@@ -1,4 +1,4 @@
-import { facilityChoices } from "./facility.js";
+import { facilityChoices, filteredFacilityMinerals, minerals } from "./facility.js";
 import { governorChoices } from "./governor.js";
 
 const renderHTML = async () => {
@@ -26,12 +26,14 @@ const renderHTML = async () => {
                  </div>
 
                 <div class="shared-container">
-                     <div class="facility-minerals">
+                     <div id="facility-minerals">
                      <h3>Facility Minerals</h3>
                      <!-- Facility minerals will be dynamically inserted here -->
                 </div>
                     <div class="space-cart">
                         <h3>Space Cart</h3>
+                        <div id="selectedMinerals"></div>
+                         
                         <button id="purchaseButton">Purchase Mineral</button>
                     </div>
                 </div>
@@ -39,4 +41,34 @@ const renderHTML = async () => {
   `;
   document.querySelector("#container").innerHTML = composedHTML;
 };
-renderHTML();
+
+renderHTML()
+
+document.addEventListener("change", (event) => {
+console.log(event)
+  if (!event.isTrusted) return
+  if (event.target.name === "mineral") {
+    const selectedId = parseInt(event.target.value)
+
+
+    const facilityMineral = filteredFacilityMinerals.find((fm) =>
+      fm.id === selectedId
+    )
+
+    if (facilityMineral) {
+      const mineral = minerals.find((m) =>
+        m.id === facilityMineral.mineralsId
+      )
+
+      if (mineral) {
+        const display = document.getElementById("selectedMinerals")
+
+        if (display) {
+          display.innerHTML = `1 ton of ${mineral.name}`
+        }
+      }
+    }
+  }
+})
+
+

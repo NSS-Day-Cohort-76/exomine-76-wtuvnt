@@ -104,16 +104,17 @@ select {
     display: flex;
     gap: 20px;
     height: 200px;
-    margin: 10px;
+    margin: 10px 20px;
+
 }
 
 /* Facility Minerals Container Styling */
-.facility-minerals {
-    flex-grow: 2; /* Takes up 2/3 of the container width */
+#facility-minerals {
+    flex-grow: 2; 
     flex-shrink: 1;
-    flex-basis: 0; /* Ensures proper proportional resizing */
+    flex-basis: 0;
     border: 2px dotted #555;
-    padding: 15px;
+    padding: 15px auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -123,10 +124,10 @@ select {
 
 /* Space Cart Section */
 .space-cart {
-    flex-grow: 1; /* Takes up 1/3 of the container width */
-    flex-shrink: 1;
-    flex-basis: 0; /* Ensures proper proportional resizing */
-    border: 2px dotted #555; /* Matches facility-minerals */
+    flex-grow: 1;
+   flex-shrink: 1; 
+    flex-basis: 0; 
+    border: 2px dotted #555; 
     padding: 15px;
     text-align: center;
     display: flex;
