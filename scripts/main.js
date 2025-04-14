@@ -36,8 +36,6 @@ const renderHTML = async () => {
                     <div class="space-cart">
                         <h3>Space Cart</h3>
                         <div id="selectedMinerals"></div>
-                         
-                        <button id="purchaseButton">Purchase Mineral</button>
 
                         ${purchaseButtonHTML}
                     </div>

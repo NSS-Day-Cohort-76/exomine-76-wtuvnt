@@ -27,7 +27,7 @@ const handleFacilityChange = async (changeEvent) => {
 
     // Filter facilityMinerals by the selected facilityId
     filteredFacilityMinerals = facilityMinerals.filter(
-      (facilityMineral) => facilityMineral.facilityId === selectedFacilityId
+      (facilityMineral) => facilityMineral.miningFacilityId === selectedFacilityId
     );
 
     // Map the filtered facilityMinerals to display minerals as radio buttons
@@ -87,7 +87,7 @@ const handleMineralSelection = async (changeEvent) => {
 
 export const facilityChoices = async () => {
   const response = await fetch("http://localhost:8088/miningFacilities");
-  const facilitys = await response.json();
+  const facilities = await response.json();
 
   document.addEventListener("change", handleFacilityChange);
   document.addEventListener("change", handleMineralSelection);
@@ -95,7 +95,7 @@ export const facilityChoices = async () => {
   const htmlString = `
       <select name="facility" id="facilityMenu">
       <option value="0">Choose a Facility</option>
-        ${facilitys
+        ${facilities
       .map(
         (facility) =>
           `<option value="${facility.id}">${facility.name}</option>`
