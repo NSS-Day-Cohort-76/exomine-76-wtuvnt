@@ -1,5 +1,6 @@
 import { setColony } from "./TransientState.js";
 
+
 const handleGovernorChange = async (changeEvent) => {
   if (changeEvent.target.name === "governor") {
     const selectedGovernorId = parseInt(changeEvent.target.value);
@@ -57,6 +58,11 @@ const handleGovernorChange = async (changeEvent) => {
     }
   }
 };
+
+
+
+
+
 
 export const governorChoices = async () => {
   const response = await fetch("http://localhost:8088/governors");
