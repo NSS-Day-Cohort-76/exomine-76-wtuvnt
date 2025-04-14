@@ -1,4 +1,4 @@
-import { setFacility } from "./TransientState.js";
+import { setFacility, setMineral } from "./TransientState.js";
 
 const handleFacilityChange = async (changeEvent) => {
   if (changeEvent.target.name === "facility") {
@@ -24,14 +24,15 @@ const handleFacilityChange = async (changeEvent) => {
 
     // Filter facilityMinerals by the selected facilityId
     const filteredFacilityMinerals = facilityMinerals.filter(
-      (facilityMineral) => facilityMineral.facilityId === selectedFacilityId
+      (facilityMineral) =>
+        facilityMineral.miningFacilityId === selectedFacilityId
     );
 
     // Map the filtered facilityMinerals to display minerals as radio buttons
     const mineralsHtml = filteredFacilityMinerals
       .map((facilityMineral) => {
         const mineral = minerals.find(
-          (m) => m.id === facilityMineral.mineralsId
+          (mineral) => mineral.id === facilityMineral.mineralsId
         );
         return `
           <div>
@@ -46,11 +47,17 @@ const handleFacilityChange = async (changeEvent) => {
 
     // Display the minerals in the facility minerals container
     document.querySelector("#facility-minerals").innerHTML = `
-      <div class="facility-minerals">
         <h3>${selectedFacility.name} Minerals</h3>
         ${mineralsHtml}
-      </div>
     `;
+  }
+};
+// Handle mineral selection
+const handleMineralSelection = async (changeEvent) => {
+  if (changeEvent.target.name === "mineral") {
+    const selectedMineralId = parseInt(changeEvent.target.value);
+    setMineral(selectedMineralId); // Update the state with the selected mineralId
+    // console.log("Selected Mineral ID:", selectedMineralId);
   }
 };
 
@@ -59,6 +66,7 @@ export const facilityChoices = async () => {
   const facilitys = await response.json();
 
   document.addEventListener("change", handleFacilityChange);
+  document.addEventListener("change", handleMineralSelection);
 
   const htmlString = `
       <select name="facility" id="facilityMenu">
