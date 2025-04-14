@@ -26,7 +26,7 @@ const renderHTML = async () => {
                  </div>
 
                 <div class="shared-container">
-                     <div class="facility-minerals">
+                     <div id="facility-minerals">
                      <h3>Facility Minerals</h3>
                      <!-- Facility minerals will be dynamically inserted here -->
                 </div>

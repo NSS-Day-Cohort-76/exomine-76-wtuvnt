@@ -80,6 +80,9 @@ select {
     width: 100%;
     padding: 10px;
     font-size: 1rem;
+    border-radius: 10px;
+    background-color: #333;
+    color: #fff;
 }
 
 /* Minerals Display Section */
@@ -108,7 +111,7 @@ select {
 }
 
 /* Facility Minerals Container Styling */
-.facility-minerals {
+#facility-minerals {
     flex-grow: 2; /* Takes up 2/3 of the container width */
     flex-shrink: 1;
     flex-basis: 0; /* Ensures proper proportional resizing */
@@ -118,7 +121,8 @@ select {
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
-    background-color: #f9f9f9; /* Add a light background color */
+    background-color: #f9f9f9; 
+    border-radius: 10px;/* Add a light background color */
 }
 
 /* Space Cart Section */
@@ -132,7 +136,8 @@ select {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #f9f9f9; /* Add a light background color */
+    background-color: #f9f9f9;
+    border-radius: 10px; /* Add a light background color */
 }
 
 /* Colony Minerals Container Styling */
@@ -148,6 +153,7 @@ select {
 
 .colonyMineralsContainer li {
     margin: 5px 0;
+    margin-left: -40px;
 }
 
 /* Purchase Button */
@@ -155,6 +161,7 @@ select {
     padding: 10px 20px;
     font-size: 1rem;
     background-color: #333;
+    border-radius: 10px;
     color: #fff;
     border: none;
     cursor: pointer;

@@ -45,8 +45,8 @@ const handleFacilityChange = async (changeEvent) => {
       .join("");
 
     // Display the minerals in the facility minerals container
-    document.querySelector("#facilityMineralsContainer").innerHTML = `
-      <div class="facilityMineralsContainer">
+    document.querySelector("#facility-minerals").innerHTML = `
+      <div class="facility-minerals">
         <h3>${selectedFacility.name} Minerals</h3>
         ${mineralsHtml}
       </div>
