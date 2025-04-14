@@ -1,9 +1,12 @@
 import { facilityChoices, filteredFacilityMinerals, minerals } from "./facility.js";
 import { governorChoices } from "./governor.js";
+import { purchaseButton } from "./purchasebutton.js";
+import { purchaseMineral } from "./TransientState.js";
 
 const renderHTML = async () => {
   const governorHTML = await governorChoices();
   const miningFacilitiesHTML = await facilityChoices();
+  const purchaseButtonHTML = purchaseButton();
   const composedHTML = `
   <h1 class="title">Solar System Mining Marketplace</h1>
   
@@ -35,11 +38,18 @@ const renderHTML = async () => {
                         <div id="selectedMinerals"></div>
                          
                         <button id="purchaseButton">Purchase Mineral</button>
+
+                        ${purchaseButtonHTML}
                     </div>
                 </div>
     </div>
   `;
   document.querySelector("#container").innerHTML = composedHTML;
+  // document.querySelector("#container").addEventListener("click", (event) => {
+  //   if (event.target.id === "purchaseButton") {
+  //     purchaseMineral();
+  //   }
+  // });
 };
 
 renderHTML()

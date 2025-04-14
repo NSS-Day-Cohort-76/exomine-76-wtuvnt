@@ -1,4 +1,4 @@
-import { setFacility } from "./TransientState.js";
+import { setFacility, setMineral } from "./TransientState.js";
 
 export let filteredFacilityMinerals = []
 export let minerals = []
@@ -34,7 +34,7 @@ const handleFacilityChange = async (changeEvent) => {
     const mineralsHtml = filteredFacilityMinerals
       .map((facilityMineral) => {
         const mineral = minerals.find(
-          (m) => m.id === facilityMineral.mineralsId
+          (mineral) => mineral.id === facilityMineral.mineralsId
         );
         return `
           <div>
@@ -73,8 +73,15 @@ const handleFacilityChange = async (changeEvent) => {
       <div class="facilityMineralsContainer">
         <h3>${selectedFacility.name} Minerals</h3>
         ${mineralsHtml}
-      </div>
     `;
+  }
+};
+// Handle mineral selection
+const handleMineralSelection = async (changeEvent) => {
+  if (changeEvent.target.name === "mineral") {
+    const selectedMineralId = parseInt(changeEvent.target.value);
+    setMineral(selectedMineralId); // Update the state with the selected mineralId
+    // console.log("Selected Mineral ID:", selectedMineralId);
   }
 };
 
@@ -83,6 +90,7 @@ export const facilityChoices = async () => {
   const facilitys = await response.json();
 
   document.addEventListener("change", handleFacilityChange);
+  document.addEventListener("change", handleMineralSelection);
 
   const htmlString = `
       <select name="facility" id="facilityMenu">
