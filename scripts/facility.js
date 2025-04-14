@@ -1,5 +1,8 @@
 import { setFacility, setMineral } from "./TransientState.js";
 
+export let filteredFacilityMinerals = []
+export let minerals = []
+
 const handleFacilityChange = async (changeEvent) => {
   if (changeEvent.target.name === "facility") {
     const selectedFacilityId = parseInt(changeEvent.target.value);
@@ -14,7 +17,7 @@ const handleFacilityChange = async (changeEvent) => {
       ]);
 
     const facilityMinerals = await facilityMineralsResponse.json();
-    const minerals = await mineralsResponse.json();
+    minerals = await mineralsResponse.json();
     const facilities = await facilitiesResponse.json();
 
     // Find the selected facility
@@ -23,9 +26,8 @@ const handleFacilityChange = async (changeEvent) => {
     );
 
     // Filter facilityMinerals by the selected facilityId
-    const filteredFacilityMinerals = facilityMinerals.filter(
-      (facilityMineral) =>
-        facilityMineral.miningFacilityId === selectedFacilityId
+    filteredFacilityMinerals = facilityMinerals.filter(
+      (facilityMineral) => facilityMineral.miningFacilityId === selectedFacilityId
     );
 
     // Map the filtered facilityMinerals to display minerals as radio buttons
@@ -42,11 +44,33 @@ const handleFacilityChange = async (changeEvent) => {
             </label>
           </div>
         `;
-      })
+      }
+      )
       .join("");
+
+    // const oneMineralHTML = filteredFacilityMinerals
+    // .map((facilityMineral) => {
+    //   const mineral = minerals.find(
+    //     (m) => m.id === facilityMineral.mineralsId
+    //   );
+    //   return `
+    //     <div>
+    //       <input type="radio" name="mineral" value="${facilityMineral.id}" id="mineral-${facilityMineral.id}" />
+    //       <label for="mineral-${facilityMineral.id}">
+    //         1 tons of ${mineral.name}
+    //       </label>
+    //     </div>
+    //   `;
+    // }
+    // )
+    // .join("");
+
+
+
 
     // Display the minerals in the facility minerals container
     document.querySelector("#facility-minerals").innerHTML = `
+      <div class="facilityMineralsContainer">
         <h3>${selectedFacility.name} Minerals</h3>
         ${mineralsHtml}
     `;
@@ -63,7 +87,7 @@ const handleMineralSelection = async (changeEvent) => {
 
 export const facilityChoices = async () => {
   const response = await fetch("http://localhost:8088/miningFacilities");
-  const facilitys = await response.json();
+  const facilities = await response.json();
 
   document.addEventListener("change", handleFacilityChange);
   document.addEventListener("change", handleMineralSelection);
@@ -71,12 +95,12 @@ export const facilityChoices = async () => {
   const htmlString = `
       <select name="facility" id="facilityMenu">
       <option value="0">Choose a Facility</option>
-        ${facilitys
-          .map(
-            (facility) =>
-              `<option value="${facility.id}">${facility.name}</option>`
-          )
-          .join("")}
+        ${facilities
+      .map(
+        (facility) =>
+          `<option value="${facility.id}">${facility.name}</option>`
+      )
+      .join("")}
       </select>
     `;
   return htmlString;
