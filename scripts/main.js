@@ -1,38 +1,74 @@
-import { colonySelect } from "./colony.js"
-import { displayFacilityChoice } from "./eventHandler.js"
-import { facilitySelect } from "./facilities.js"
-import { facilitiesData } from "./facilities.js"
+import { facilityChoices, filteredFacilityMinerals, minerals } from "./facility.js";
+import { governorChoices } from "./governor.js";
 
-const mainContainer = document.getElementById("container")
-
-const renderAllHTML = async () => {
-  const colonyDisplay = await colonySelect()
-  const facilityHTML = await facilitySelect()
-  return `<div>
-    <h2>Solar System Mining Marketplace</h2>
-
-    <div>${facilityHTML}</div>
-
-    <div>${colonyDisplay}</div>
-
-    <div></div>
-
-    <div id="facilityOutput"></div>
+const renderHTML = async () => {
+  const governorHTML = await governorChoices();
+  const miningFacilitiesHTML = await facilityChoices();
+  const composedHTML = `
+  <h1 class="title">Solar System Mining Marketplace</h1>
   
-  
-  </div>`
+                <div class="layout">
+                    <div class="dropdowns">
+                        <div class="dropdown">
+                            <h3>Choose a Governor</h3>
+                                ${governorHTML}
+                        </div>
+                <div class="dropdown">
+                        <h3>Choose a Facility</h3>
+                            ${miningFacilitiesHTML}
+                    </div>
+                 </div>
+                <div class="minerals-display">
+                    <div id="colonyMineralsContainer" class="colonyMineralsContainer">
+                    <h3>Colony Minerals</h3>
+                    <!-- Colony minerals will be dynamically inserted here -->
+                    </div>
+                 </div>
 
-}
+                <div class="shared-container">
+                     <div id="facility-minerals">
+                     <h3>Facility Minerals</h3>
+                     <!-- Facility minerals will be dynamically inserted here -->
+                </div>
+                    <div class="space-cart">
+                        <h3>Space Cart</h3>
+                        <div id="selectedMinerals"></div>
+                         
+                        <button id="purchaseButton">Purchase Mineral</button>
+                    </div>
+                </div>
+    </div>
+  `;
+  document.querySelector("#container").innerHTML = composedHTML;
+};
 
-const loadHTML = async () => {
-  mainContainer.innerHTML = await renderAllHTML()
+renderHTML()
+
 document.addEventListener("change", (event) => {
-      const html = displayFacilityChoice(event, facilitiesData)
-      if (html) {
-        document.getElementById("facilityOutput").innerHTML = html
+console.log(event)
+  if (!event.isTrusted) return
+  if (event.target.name === "mineral") {
+    const selectedId = parseInt(event.target.value)
+
+
+    const facilityMineral = filteredFacilityMinerals.find((fm) =>
+      fm.id === selectedId
+    )
+
+    if (facilityMineral) {
+      const mineral = minerals.find((m) =>
+        m.id === facilityMineral.mineralsId
+      )
+
+      if (mineral) {
+        const display = document.getElementById("selectedMinerals")
+
+        if (display) {
+          display.innerHTML = `1 ton of ${mineral.name}`
+        }
       }
     }
-  )
-}
-loadHTML()
+  }
+})
+
 
