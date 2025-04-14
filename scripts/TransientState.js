@@ -23,21 +23,7 @@ export const setMineral = (mineralId) => {
 };
 
 export const purchaseMineral = async () => {
-  /*
-        Does the chosen governor's colony already own some of this mineral?
-            - If yes, what should happen?
-            - If no, what should happen?
 
-        Defining the algorithm for this method is traditionally the hardest
-        task for teams during this group project. It will determine when you
-        should use the method of POST, and when you should use PUT.
-
-        Only the foolhardy try to solve this problem with code.
-    */
-
-  // Need to subtract one from facilityMinerals and add one to colonyMinerals when button clicked
-  // if colonyMineral exists put +1 mineralId and put -1 mineralId facilityMineral
-  // else colonyMineral doesnt exist post +1 mineralId
   try {
     // Ensure facilityId, colonyId, and mineralId are set
     if (!state.facilityId || !state.colonyId || !state.mineralId) {
