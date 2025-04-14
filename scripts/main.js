@@ -1,7 +1,6 @@
 import { facilityChoices } from "./facility.js";
 import { governorChoices } from "./governor.js";
 import { purchaseButton } from "./purchasebutton.js";
-import { purchaseMineral } from "./TransientState.js";
 
 const renderHTML = async () => {
   const governorHTML = await governorChoices();
@@ -35,17 +34,12 @@ const renderHTML = async () => {
                 </div>
                     <div class="space-cart">
                         <h3>Space Cart</h3>
-
                         ${purchaseButtonHTML}
                     </div>
                 </div>
     </div>
   `;
   document.querySelector("#container").innerHTML = composedHTML;
-  // document.querySelector("#container").addEventListener("click", (event) => {
-  //   if (event.target.id === "purchaseButton") {
-  //     purchaseMineral();
-  //   }
-  // });
 };
+
 renderHTML();
