@@ -1,3 +1,7 @@
+import { renderColonyMinerals } from "./governor.js";
+import { renderFacilityMinerals } from "./facility.js";
+
+
 const state = {
   facilityId: 0,
   colonyId: 0,
@@ -49,7 +53,7 @@ export const purchaseMineral = async () => {
     );
 
     if (!selectedFacilityMineral || selectedFacilityMineral.quantity <= 0) {
-      console.error(
+      window.alert(
         "This mineral is out of stock or not found in the facility."
       );
       return;
@@ -69,6 +73,7 @@ export const purchaseMineral = async () => {
         body: JSON.stringify(selectedFacilityMineral),
       }
     );
+
 
     // Find the colony mineral for the selected colony and mineral
     let selectedColonyMineral = colonyMinerals.find(
@@ -107,6 +112,10 @@ export const purchaseMineral = async () => {
         body: JSON.stringify(selectedColonyMineral),
       });
     }
+
+    await renderColonyMinerals(state.colonyId);
+    await renderFacilityMinerals(state.facilityId);
+    
 
     console.log("Mineral successfully transferred!");
     document.dispatchEvent(new CustomEvent("stateChanged"));

@@ -48,25 +48,6 @@ const handleFacilityChange = async (changeEvent) => {
       )
       .join("");
 
-    // const oneMineralHTML = filteredFacilityMinerals
-    // .map((facilityMineral) => {
-    //   const mineral = minerals.find(
-    //     (m) => m.id === facilityMineral.mineralsId
-    //   );
-    //   return `
-    //     <div>
-    //       <input type="radio" name="mineral" value="${facilityMineral.id}" id="mineral-${facilityMineral.id}" />
-    //       <label for="mineral-${facilityMineral.id}">
-    //         1 tons of ${mineral.name}
-    //       </label>
-    //     </div>
-    //   `;
-    // }
-    // )
-    // .join("");
-
-
-
 
     // Display the minerals in the facility minerals container
     document.querySelector("#facility-minerals").innerHTML = `
@@ -77,13 +58,29 @@ const handleFacilityChange = async (changeEvent) => {
   }
 };
 // Handle mineral selection
+// const handleMineralSelection = async (changeEvent) => {
+//   if (changeEvent.target.name === "mineral") {
+//     const selectedMineralId = parseInt(changeEvent.target.value);
+//     setMineral(selectedMineralId); // Update the state with the selected mineralId
+//     // console.log("Selected Mineral ID:", selectedMineralId);
+//   }
+// };
+
 const handleMineralSelection = async (changeEvent) => {
   if (changeEvent.target.name === "mineral") {
-    const selectedMineralId = parseInt(changeEvent.target.value);
-    setMineral(selectedMineralId); // Update the state with the selected mineralId
-    // console.log("Selected Mineral ID:", selectedMineralId);
+    const selectedFacilityMineralId = parseInt(changeEvent.target.value);
+
+    // Use the filteredFacilityMinerals to find the correct mineralsId
+    const facilityMineral = filteredFacilityMinerals.find(fm => fm.id === selectedFacilityMineralId);
+
+    if (facilityMineral) {
+      setMineral(facilityMineral.mineralsId); // ✅ Now you're correctly storing the mineral ID
+    }
   }
 };
+
+
+
 
 export const facilityChoices = async () => {
   const response = await fetch("http://localhost:8088/miningFacilities");
@@ -104,4 +101,45 @@ export const facilityChoices = async () => {
       </select>
     `;
   return htmlString;
+};
+
+// ADD IN BELOW
+
+export const renderFacilityMinerals = async (facilityId) => {
+  const [facilityMineralsResponse, mineralsResponse, facilitiesResponse] =
+    await Promise.all([
+      fetch("http://localhost:8088/facilityMinerals"),
+      fetch("http://localhost:8088/minerals"),
+      fetch("http://localhost:8088/miningFacilities"),
+    ]);
+
+  const facilityMinerals = await facilityMineralsResponse.json();
+  minerals = await mineralsResponse.json();
+  const facilities = await facilitiesResponse.json();
+
+  const selectedFacility = facilities.find((f) => f.id === facilityId);
+  filteredFacilityMinerals = facilityMinerals.filter(
+    (fm) => fm.miningFacilityId === facilityId
+  );
+
+  const mineralsHtml = filteredFacilityMinerals
+    .map((fm) => {
+      const mineral = minerals.find((m) => m.id === fm.mineralsId);
+      return `
+        <div>
+          <input type="radio" name="mineral" value="${fm.id}" id="mineral-${fm.id}" />
+          <label for="mineral-${fm.id}">
+            ${fm.quantity} tons of ${mineral.name}
+          </label>
+        </div>
+      `;
+    })
+    .join("");
+
+  document.querySelector("#facility-minerals").innerHTML = `
+    <div class="facilityMineralsContainer">
+      <h3>${selectedFacility.name} Minerals</h3>
+      ${mineralsHtml}
+    </div>
+  `;
 };

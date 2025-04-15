@@ -83,3 +83,38 @@ export const governorChoices = async () => {
   `;
   return htmlString;
 };
+
+
+//   ADD IN BELOW
+
+export const renderColonyMinerals = async (colonyId) => {
+  const [colonyMineralsResponse, coloniesResponse, mineralsResponse] =
+    await Promise.all([
+      fetch("http://localhost:8088/colonyMinerals"),
+      fetch("http://localhost:8088/colonies"),
+      fetch("http://localhost:8088/minerals"),
+    ]);
+
+  const colonyMinerals = await colonyMineralsResponse.json();
+  const colonies = await coloniesResponse.json();
+  const minerals = await mineralsResponse.json();
+
+  const colony = colonies.find((c) => c.id === colonyId);
+  const filteredColonyMinerals = colonyMinerals.filter(
+    (cm) => cm.colonyId === colonyId
+  );
+
+  let mineralsHtml = filteredColonyMinerals.length
+    ? filteredColonyMinerals
+        .map((cm) => {
+          const mineral = minerals.find((m) => m.id === cm.mineralsId);
+          return `<li>${mineral.name}: ${cm.quantity}</li>`;
+        })
+        .join("")
+    : "<li>No minerals yet in this colony.</li>";
+
+  document.querySelector("#colonyMineralsContainer").innerHTML = `
+    <h3>${colony.name} Minerals</h3>
+    <ul>${mineralsHtml}</ul>
+  `;
+};
