@@ -76,49 +76,43 @@
       "id": 1,
       "colonyId": 1,
       "mineralsId": 1,
-      "quantity": 11
+      "quantity": 9
     },
     {
       "id": 2,
       "colonyId": 1,
       "mineralsId": 2,
-      "quantity": 0
+      "quantity": 6
     },
     {
       "id": 3,
       "colonyId": 2,
       "mineralsId": 1,
-      "quantity": 0
+      "quantity": 1
     },
     {
       "id": 4,
       "colonyId": 2,
       "mineralsId": 2,
-      "quantity": 0
+      "quantity": 5
     },
     {
-      "id": 5,
       "colonyId": 3,
-      "mineralsId": 3,
-      "quantity": 0
+      "mineralsId": 1,
+      "quantity": 7,
+      "id": 5
     },
     {
-      "colonyId": 1,
+      "colonyId": 3,
       "mineralsId": 3,
       "quantity": 4,
       "id": 6
     },
     {
       "colonyId": 3,
-      "mineralsId": 1,
-      "quantity": 2,
-      "id": 7
-    },
-    {
-      "colonyId": 3,
       "mineralsId": 2,
       "quantity": 1,
-      "id": 8
+      "id": 7
     }
   ],
   "facilityMinerals": [
@@ -126,25 +120,25 @@
       "id": 1,
       "miningFacilityId": 1,
       "mineralsId": 1,
-      "quantity": 5
+      "quantity": 9
     },
     {
       "id": 2,
       "miningFacilityId": 1,
       "mineralsId": 2,
-      "quantity": 11
+      "quantity": 20
     },
     {
       "id": 3,
       "miningFacilityId": 2,
       "mineralsId": 3,
-      "quantity": 0
+      "quantity": 26
     },
     {
       "id": 4,
       "miningFacilityId": 2,
       "mineralsId": 1,
-      "quantity": 9
+      "quantity": 18
     }
   ]
 }
